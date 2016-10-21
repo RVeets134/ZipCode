@@ -1,14 +1,23 @@
+import java.util.Scanner;
 
 public class Zipcode{
 
 	private int zipcode;
+	private String zipcodeString;
 	private String barcode;
 	private Location[] locations;
 
 	public Zipcode(int zipcode)
 	{
 	
-	this.zipcode = zipcode;
+		this.zipcode = zipcode;
+		
+		for(int i = 0; i < zipcode.length(); i++)
+		   {
+			
+		    zipcodeString += [Integer.parseInt(zipcode.charAt(i) + "")];
+		   
+		   }
 	
 	}
 	
@@ -19,11 +28,29 @@ public class Zipcode{
 		
 	}
 	
+	public Location[] getLocationArray()
+	{
+		
+		Scanner cities = new Scanner("ZipCodesCity.txt");
+		String line = cities.nextLine();
+		String city;
+		String state;
+		
+		if(line.contains(zipcode))
+		{
+			
+			line = line.substring(5);
+			
+			
+		}
+		
+	}
+	
 	public String toString()
 	{
 		
-		
-		
+		return null;
+	
 	}
 	
 	private static String[] converter()
@@ -46,7 +73,7 @@ public class Zipcode{
 		
 	}
 	
-	private static String getBarcode(String zipcode,String[] converter) 
+	public static String getBarcode(String zipcode,String[] converter) 
 	{
 
 		String barcode = "";
