@@ -1,16 +1,38 @@
 
 public class Barcode {
-
+	private String readableBarcode;
+	private String postableBarcode;
+	private int zipcode;
+	
 	public Barcode(String barcodeString) {
-		// TODO Auto-generated constructor stub
+		postableBarcode = barcodeString;
+		readableBarcode = "";
+		zipcode = 0;
+	}
+	
+	public Barcode(int newZipcode)
+	{
+		zipcode = newZipcode;
+		postableBarcode = "";
+		readableBarcode = "";
+	}
+	
+	public String toString()
+	{
+		return postableBarcode;
 	}
 
 	public String getReadableBarcode() {
-		// TODO Auto-generated method stub
-		return null;
+		readableBarcode = "|";
+		for(int i = 1; i<postableBarcode.length()-1; i+=5)
+		{
+			readableBarcode += "\t" + postableBarcode.substring(i, i+5);
+		}
+		readableBarcode+="\t|";
+		return readableBarcode;
 	}
 
-	public ZipCode toZipcode() {
+	public Zipcode toZipcode() {
 		// TODO Auto-generated method stub
 		return null;
 	}
@@ -20,7 +42,7 @@ public class Barcode {
 		return 0;
 	}
 
-	public boolean checkValidity(ZipCode convertedZipcode, int checkDigit) {
+	public boolean checkValidity(Zipcode convertedZipcode, int checkDigit) {
 		// TODO Auto-generated method stub
 		return false;
 	}
