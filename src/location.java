@@ -29,7 +29,7 @@ public class Location {
 	public String toString()
 	{
 		
-		return city + " " + state;
+		return city + "," + state;
 		
 	}
 	
