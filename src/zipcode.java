@@ -3,14 +3,16 @@ import java.util.Scanner;
 public class Zipcode{
 
 	private static int zipcode;
-	private static String zipcodeString = Integer.toString(zipcode);;
+	private static String zipcodeString;
 	private static String barcode;
 	private Location[] locations;
+	private int numberOfLocations;
 
 	public Zipcode(int zipcode)
 	{
 	
 		this.zipcode = zipcode;
+		zipcodeString = Integer.toString(zipcode);
 	
 	}
 	
@@ -21,13 +23,11 @@ public class Zipcode{
 		
 	}
 	
-	public Location[] getLocationArray()
+	private void locationArraySize()
 	{
 		
 		Scanner cities = new Scanner("ZipCodesCity.txt");
 		String line = cities.nextLine();
-		String city;
-		String state;
 		int numberOfLocations = 0;
 		
 		while(cities.hasNext())
@@ -41,9 +41,19 @@ public class Zipcode{
 			}
 			
 		}
+
+		this.numberOfLocations = numberOfLocations;
+		
+	}
+	
+	private void createLocationArray()
+	{
 		
 		Location[] locations = new Location[numberOfLocations];
-		cities = new Scanner("ZipCodesCity.txt");
+		Scanner cities = new Scanner("ZipCodesCity.txt");
+		String line = cities.nextLine();
+		String city;
+		String state;
 		int arrayCounter = 0;
 		
 		while(cities.hasNext())
@@ -63,6 +73,13 @@ public class Zipcode{
 			
 		}
 		
+		this.locations = locations;
+		
+	}
+	
+	public Location[] getLocationArray()
+	{
+		
 		return locations;
 		
 	}
@@ -70,36 +87,16 @@ public class Zipcode{
 	public String toString()
 	{
 		
-		String everything = zipcodeString + "/n";
+		String zipcodeInfo = zipcodeString + "/n";
 		for(int n = 0;n < locations.length;n++)
 		{
 			
-			everything = locations[n] + "/n";
+			zipcodeInfo = locations[n] + "/n";
 			
 		}
 		
-		return everything;		
+		return zipcodeInfo;		
 	
-	}
-	
-	private static String[] converter()
-	{
-		
-		String[] converter = new String[10];
-		
-		converter[0] = "||:::";
-		converter[1] = ":::||";
-		converter[2] = "::|:|";
-		converter[3] = "::||:";
-		converter[4] = ":|::|";
-		converter[5] = ":|:|:";
-		converter[6] = ":||::";
-		converter[7] = "|:::|";
-		converter[8] = "|::|:";
-		converter[9] = "|:|::";
-		
-		return converter;
-		
 	}
 	
 	private static String createBarcode() 
