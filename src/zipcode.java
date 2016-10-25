@@ -4,7 +4,7 @@ public class Zipcode{
 
 	private static int zipcode;
 	private static String zipcodeString;
-	private static String barcode;
+	private static String barcode = "";
 	private Location[] locations;
 	private int numberOfLocations;
 
@@ -80,6 +80,7 @@ public class Zipcode{
 	public Location[] getLocationArray()
 	{
 		
+		createLocationArray();
 		return locations;
 		
 	}
@@ -99,7 +100,7 @@ public class Zipcode{
 	
 	}
 	
-	private static String createBarcode() 
+	private void createBarcode() 
 	{
 		
 		String[] converter = new String[10];
@@ -114,21 +115,26 @@ public class Zipcode{
 		converter[7] = "|:::|";
 		converter[8] = "|::|:";
 		converter[9] = "|:|::";
+		barcode="|";
 		
 		for(int i = 0; i < zipcodeString.length(); i++)
 		   {
 			
-		    barcode += converter[Integer.parseInt(zipcodeString.charAt(i) + "")];
+		    barcode += converter[Integer.parseInt(zipcodeString.substring(i,i+1))];
+		    System.out.println(converter[Integer.parseInt(zipcodeString.substring(i,i+1))]);
 		   
 		   }
 		
-		return barcode;
+		System.out.println("End");
 		
+		//System.out.println(barcode);
+		 
 	}
 	
-	public static String getBarcode()
+	public String getBarcode()
 	{
 		
+		createBarcode();
 		return barcode;
 		
 	}
