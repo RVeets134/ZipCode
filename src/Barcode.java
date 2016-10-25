@@ -1,4 +1,9 @@
-
+/**
+ * 
+ * @author Vanshika Chowdhary
+ * Barcode object
+ *
+ */
 public class Barcode {
 	private String readableBarcode;
 	private String postableBarcode;
@@ -52,13 +57,13 @@ public class Barcode {
 	public boolean checkValidity(Zipcode convertedZipcode, int checkDigit) {
 		int sumOfDigits = getSumOfDigits(convertedZipcode.getZipcode());
 		if((sumOfDigits + checkDigit)%10 == 0) return true;
-		return false;
+		else return false;
 	}
 	
 	private int getSumOfDigits(int num)
 	{
 		int sum = 0;
-		while(num>0)
+		while(num!=0)
 		{
 			sum+=num%10;
 			num = num/10;
