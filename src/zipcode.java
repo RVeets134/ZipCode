@@ -3,7 +3,9 @@ import java.util.Scanner;
 public class Zipcode{
 
 	private static int zipcode;
+	private static int zipcodeWithCheck;
 	private static String zipcodeString;
+	private static String zipcodeStringWithCheck;
 	private static String barcode = "";
 	private Location[] locations;
 	private int numberOfLocations;
@@ -13,13 +15,35 @@ public class Zipcode{
 	
 		this.zipcode = zipcode;
 		zipcodeString = Integer.toString(zipcode);
-	
+		createZipWithCheck();
+		zipcodeStringWithCheck = Integer.toString(zipcodeWithCheck);
+		
 	}
 	
 	public int getZipcode()
 	{
 		
 		return zipcode;
+		
+	}
+	
+	private void createZipWithCheck()
+	{
+		
+		int sum = 0;
+		int checkDigit;
+		
+		for(int n = 0;n < zipcodeString.length();n++)
+		{
+			
+			sum += zipcodeString.charAt(n);
+			
+		}
+		
+		checkDigit = 10 - (sum % 10);
+		
+		zipcodeWithCheck = (zipcode * 10) + checkDigit;
+		
 		
 	}
 	
@@ -49,6 +73,7 @@ public class Zipcode{
 	private void createLocationArray()
 	{
 		
+		locationArraySize();
 		Location[] locations = new Location[numberOfLocations];
 		Scanner cities = new Scanner("ZipCodesCity.txt");
 		String line = cities.nextLine();
@@ -68,8 +93,12 @@ public class Zipcode{
 				state = line.substring(n);
 				
 				locations[arrayCounter] = new Location(city,state);
+		
+				arrayCounter++;
 			
 			}
+			
+			line = cities.nextLine();
 			
 		}
 		
@@ -115,19 +144,16 @@ public class Zipcode{
 		converter[7] = "|:::|";
 		converter[8] = "|::|:";
 		converter[9] = "|:|::";
-		barcode="|";
+		barcode = "|";
+		
+		//Add check digit to end of barcode
 		
 		for(int i = 0; i < zipcodeString.length(); i++)
 		   {
 			
-		    barcode += converter[Integer.parseInt(zipcodeString.substring(i,i+1))];
-		    System.out.println(converter[Integer.parseInt(zipcodeString.substring(i,i+1))]);
+		    barcode += converter[Integer.parseInt(zipcodeStringWithCheck.substring(i,i+1))];
 		   
 		   }
-		
-		System.out.println("End");
-		
-		//System.out.println(barcode);
 		 
 	}
 	

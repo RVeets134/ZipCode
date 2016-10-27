@@ -23,8 +23,8 @@ public class Client {
 			zipcodes[i] = new Zipcode(in.nextInt());
 			String barcodeString = zipcodes[i].getBarcode();
 			convertedBarcodes[i] = new Barcode(barcodeString);
+			printOption1And2(zipcodes[i], convertedBarcodes[i]);
 		}
-		printOption1And2(zipcodes, convertedBarcodes);
 		
 		//OPTION 3:
 		File option3 = new File("ZipBarCodes.txt");
@@ -39,7 +39,7 @@ public class Client {
 		{
 			barcodes[i] = new Barcode(in.nextLine());
 			convertedZipcodes[i] = barcodes[i].toZipcode();
-			message[i] = convertedZipcodes[i].toString();//gets Zipcode and makes it a string
+			message[i] = convertedZipcodes[i].getZipcode() + "";//gets Zipcode and makes it a string
 			int checkDigit = barcodes[i].getCheckDigit();
 			if(barcodes[i].checkValidity(convertedZipcodes[i], checkDigit) == false)
 			{
@@ -68,35 +68,22 @@ public class Client {
 		
 	}
 
-	public static void printOption1And2(Zipcode[] zipcodes, Barcode[] convertedBarcodes) 
+	public static void printOption1And2(Zipcode zipcode, Barcode convertedBarcode) 
 	{
-		for(int i = 0; i<zipcodes.length; i++)
-		{
-			Location[] matchingCities = zipcodes[i].getLocationArray();
-			printArray(matchingCities, zipcodes[i]);
-			System.out.println("\t\tReadable Barcode " + convertedBarcodes[i].getReadableBarcode());
-			System.out.println("\t\tPostal Barcode " + convertedBarcodes[i].toString());
-			
-		}
 		
+			Location[] matchingCities = zipcode.getLocationArray();
+			printArray(matchingCities, zipcode);
+			System.out.println(zipcode.getZipcode() + "\t\tReadable Barcode " + convertedBarcode.getReadableBarcode());
+			System.out.println("\t\tPostal Barcode " + convertedBarcode.toString());
+
 	}
 
 	public static void printArray(Location[] matchingCities, Zipcode zip) {
 		for(int i = 0; i<matchingCities.length; i++)
 		{
-			System.out.println(zip.toString() + matchingCities[i]);
+			System.out.println(zip.getZipcode() + "" + matchingCities[i]);
 		}
 		
-	}
-
-	public static void printOption1And2(Zipcode Zipcode, Barcode barcode, Location[] matchingCities)
-	{
-		for(int i = 0; i<matchingCities.length; i++)
-		{
-			System.out.println(Zipcode.toString() + matchingCities[i].toString());
-		}
-		System.out.println(Zipcode+"\tReadable Barcode: "+barcode.getReadableBarcode());
-		System.out.println("\t\tPostal Barcode: " + barcode);
 	}
 
 }
