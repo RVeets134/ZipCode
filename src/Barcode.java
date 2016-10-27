@@ -29,9 +29,9 @@ public class Barcode {
 
 	public String getReadableBarcode() {
 		readableBarcode = "|";
-		for(int i = 1; i<postableBarcode.length(); i+=5)
+		for(int i = 1; i<postableBarcode.length()-1; i+=5)
 		{
-			readableBarcode += "\t" + postableBarcode.substring(i,i+5);
+			readableBarcode += "\t" + postableBarcode.substring(i, i+5);
 		}
 		readableBarcode+="\t|";
 		return readableBarcode;
