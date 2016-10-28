@@ -4,11 +4,11 @@ import java.util.Scanner;
 
 public class Zipcode{
 
-	private static int zipcode;
-	private static int zipcodeWithCheck;
-	private static String zipcodeString;
-	private static String zipcodeStringWithCheck;
-	private static String barcode = "";
+	private int zipcode;
+	private int zipcodeWithCheck;
+	private String zipcodeString;
+	private String zipcodeStringWithCheck;
+	private String barcode = "";
 	private Location[] locations;
 	private int numberOfLocations;
 

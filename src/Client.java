@@ -9,14 +9,13 @@ public class Client {
 
 	public static void main(String[] args) throws FileNotFoundException {
 		// TODO Auto-generated method stub
-		System.out.println("Start");
 		File option1 = new File("Zipcodes.txt");
 		Scanner in = new Scanner(option1);
 		
 		//System.out.println(in.nextLine());
 		
 		//OPTION 1&2:
-		System.out.println("Option 1 and 2:");
+		System.out.println("OPTION 1 and 2:");
 		Zipcode[] zipcodes = new Zipcode[10];
 		Barcode[] convertedBarcodes = new Barcode[zipcodes.length];
 	
@@ -25,10 +24,12 @@ public class Client {
 			zipcodes[i] = new Zipcode(in.nextInt());
 			String barcodeString = zipcodes[i].getBarcode();
 			convertedBarcodes[i] = new Barcode(barcodeString);
-			printOption1And2(zipcodes[i], convertedBarcodes[i]);
+			//printOption1And2(zipcodes[i], convertedBarcodes[i]);
 		}
+		printOption1And2(zipcodes, convertedBarcodes);
 		
 		//OPTION 3:
+		System.out.println("OPTION 3:");
 		File option3 = new File("ZipBarCodes.txt");
 		in = new Scanner(option3);
 		
@@ -49,18 +50,31 @@ public class Client {
 			}
 		}
 		printOption3(barcodes, message, convertedZipcodes);
+		
 	
 	}
 
-	public static void printOption3(Barcode[] barcodes, String[] message, Zipcode[] convertedZipcodes) throws FileNotFoundException {
-		for(int i = 0; i<barcodes.length; i++)
+	public static void printOption1And2(Zipcode[] zipcodes, Barcode[] convertedBarcodes) throws FileNotFoundException {
+		// TODO Auto-generated method stub
+		for(int i = 0; i<zipcodes.length; i++)
 		{
-			System.out.println(barcodes[i].toString() + "\t---->\t" + message[i]);
-			Location[] matchingCities = convertedZipcodes[i].getLocationArray();
-			printArray(matchingCities);
+			Location[] matchingCities = zipcodes[i].getLocationArray();
+			printArray(matchingCities, zipcodes[i]);
+			System.out.println(zipcodes[i].getZipcode() + "\t\tReadable Barcode " + convertedBarcodes[i].getReadableBarcode());
+			System.out.println("\t\tPostal Barcode " + convertedBarcodes[i].toString());
 		}
 		
 	}
+
+	public static void printOption3(Barcode[] barcodes, String[] message, Zipcode[] convertedZipcodes) throws FileNotFoundException {
+			for(int i =0; i<barcodes.length; i++)
+			{
+				System.out.println(barcodes[i].toString() + "\t---->\t" + message[i]);
+				Location[] matchingCities = convertedZipcodes[i].getLocationArray();
+				printArray(matchingCities, convertedZipcodes[i]);
+			}
+		}
+		
 
 	public static void printArray(Location[] matchingCities) {
 		for(int i = 0; i<matchingCities.length; i++)
@@ -72,7 +86,6 @@ public class Client {
 
 	public static void printOption1And2(Zipcode zipcode, Barcode convertedBarcode) throws FileNotFoundException 
 	{
-		
 			Location[] matchingCities = zipcode.getLocationArray();
 			printArray(matchingCities, zipcode);
 			System.out.println(zipcode.getZipcodeString() + "\t\tReadable Barcode " + convertedBarcode.getReadableBarcode());
@@ -90,7 +103,7 @@ public class Client {
 		}
 		else
 		{
-			System.out.println("no matching cities found");
+			System.out.println("No Location Found");
 		}
 		
 	}
