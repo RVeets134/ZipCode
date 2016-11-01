@@ -9,24 +9,37 @@ public class Barcode {
 	private String postableBarcode;
 	private int zipcode;
 	
+	/**
+	 * CONSTRUCTOR
+	 * creates barcode object
+	 * @param barcodeString string representation of barcode
+	 */
 	public Barcode(String barcodeString) {
 		postableBarcode = barcodeString;
 		readableBarcode = "";
 		zipcode = 0;
 	}
-	
+	/**CONSTRUCTOR
+	 * creates barcode object
+	 * @param newZipcode integer zipcode that will be converted into a barcode
+	 */
 	public Barcode(int newZipcode)
 	{
 		zipcode = newZipcode;
 		postableBarcode = "";
 		readableBarcode = "";
 	}
-	
+	/**
+	 * returns postable barcode by default
+	 */
 	public String toString()
 	{
 		return postableBarcode;
 	}
-
+	/**
+	 * makes a readable barcode given the postable barcode
+	 * @return readable barcode
+	 */
 	public String getReadableBarcode() {
 		readableBarcode = "|";
 		for(int i = 1; i<postableBarcode.length()-1; i+=5)
@@ -36,7 +49,10 @@ public class Barcode {
 		readableBarcode+="\t|";
 		return readableBarcode;
 	}
-
+	/**
+	 * converts the barcode string (postableBarcode) to a zipcode
+	 * @return zipcode object
+	 */
 	public Zipcode toZipcode() {
 		String zip = "";
 		for(int i = 1; i<postableBarcode.length()-6; i+=5)
@@ -47,19 +63,31 @@ public class Barcode {
 		Zipcode zipcode = new Zipcode(Integer.parseInt(zip));
 		return zipcode;
 	}
-
+	/**
+	 * finds the check digit in the postable barcode and converts it to an integer
+	 * @return
+	 */
 	public int getCheckDigit() {
 		String checkDigitString = postableBarcode.substring(postableBarcode.length() - 6, postableBarcode.length()-1);
 		int checkDigit = Integer.parseInt(getDigit(checkDigitString));
 		return checkDigit;
 	}
-
+	/**
+	 * checks if the barcode is valid for the zipcode
+	 * @param convertedZipcode zipcode that was converted from a barcode
+	 * @param checkDigit checkdigit in that barcode
+	 * @return true if the checkdigit and converted zipcode work 
+	 */
 	public boolean checkValidity(Zipcode convertedZipcode, int checkDigit) {
 		int sumOfDigits = getSumOfDigits(convertedZipcode.getZipcode());
 		if((sumOfDigits + checkDigit)%10 == 0) return true;
 		else return false;
 	}
-	
+	/**
+	 * calculates the sum of digits
+	 * @param num
+	 * @return
+	 */
 	private int getSumOfDigits(int num)
 	{
 		int sum = 0;
@@ -70,6 +98,11 @@ public class Barcode {
 		}
 		return sum;
 	}
+	/**
+	 * converts the digit in barcode form to a number
+	 * @param digitCode
+	 * @return the number in string format
+	 */
 	private String getDigit(String digitCode)
 	{
 		int digit[] = new int[5];
